@@ -18,10 +18,10 @@ public:
     Converter_JSON() = default;
     Converter_JSON(std::string* path);
 
-    void chek_result() ;
+    void chek_result();
+    void save_answere();
+
 };
-
-
 
 
 #endif //SEARCH_ENGINE_CONVERTER_JSON_H
