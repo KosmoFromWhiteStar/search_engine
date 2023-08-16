@@ -17,7 +17,7 @@
 #define FALSE "\"false\"\n}"
 #define DOC_ID "\"doc_id\" : "
 #define RANK  ", \"rank\" : "
-#define LINE(s) std::cout << "========[" << s << "]========" << std::endl
+#define LINE(s) std::cout << "========[\t" << s << "\t]========" << std::endl
 
 using js = nlohmann::json;
 class Converter_JSON

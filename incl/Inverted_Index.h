@@ -25,11 +25,12 @@ struct Entry
 class Inverted_Index
 {
 private:
+    bool state = false;
     std::vector<std::string> docs;
     std::map<std::string, std::vector<Entry>> freq_dictionary;
-
+    class Converter_JSON* json;
 public:
-    Inverted_Index(){};
+    Inverted_Index(Converter_JSON* in_json);
     void update_Document_Base(std::vector<std::string> text);
     std::vector<Entry> get_Word_Count(const std::string& word);
 };
