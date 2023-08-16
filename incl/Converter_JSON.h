@@ -6,24 +6,30 @@
 #define SEARCH_ENGINE_CONVERTER_JSON_H
 #pragma once
 #include <iostream>
+#include <vector>
+#include <map>
 #include <fstream>
 #include <filesystem>
 #include "nlohmann/json.hpp"
 
-#define VERSION 1
+#define VERSION "1"
 
 using js = nlohmann::json;
 class Converter_JSON
 {
 private:
+    js json;
     //state of search engine
     bool state = false;
-    js json;
+
 public:
     Converter_JSON();
     void start();
-    void save_answere();
-    int GetResponseLimit();
+    void chek()
+    {
+     std::cout << json << std::endl;
+    }
+    int get_Response_Limit();
     void put_Answere(std::vector<std::pair<int, float>> answere);
 };
 

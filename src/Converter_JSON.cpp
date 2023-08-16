@@ -3,7 +3,6 @@
 //
 
 #include "../incl/Converter_JSON.h"
-#include <cassert>
 
 #define LINE(s) std::cout << "========[" << s << "]========" << std::endl
 
@@ -18,6 +17,7 @@ Converter_JSON::Converter_JSON()
         return;
     }
     file >> json;
+    //
     if(json["config"] == nullptr)
     {
         std::cerr << "Config is empty" << std::endl;
@@ -33,25 +33,17 @@ Converter_JSON::Converter_JSON()
 }
 
 void Converter_JSON::start() {
-    if(state) return;
+    if(!state) return;
     LINE("Start");
-    std::cout << "Name engine: " << json["name"] << std::endl;
-    std::cout << "Version: " << json["version"] << std::endl;
+    std::cout << "Name engine: " << json["config"]["name"] << std::endl;
+    std::cout << "Version: " << json["config"]["version"] << std::endl;
 }
 
-void Converter_JSON::save_answere() {
-
-    std::ofstream output("answers.json");
-    if(!output.is_open())
-    {
-        std::cerr << "File output isnt open" << std::endl;
-    }
-    output << json;
-
-    output.close();
+int Converter_JSON::get_Response_Limit() {
+    if(!state) return 0;
+    return json["config"]["max_responses"];
 }
 
-int Converter_JSON::GetResponseLimit() {
-    if(state) return 0;
-    return json["config"]["max_response"];
+void Converter_JSON::put_Answere(std::vector<std::pair<int, float>> answere) {
+
 }
