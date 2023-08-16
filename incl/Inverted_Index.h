@@ -9,6 +9,7 @@
 #include <map>
 #include <fstream>
 #include <filesystem>
+#include <thread>
 #include "nlohmann/json.hpp"
 
 struct Entry
@@ -28,7 +29,7 @@ private:
     std::map<std::string, std::vector<Entry>> freq_dictionary;
 public:
     Inverted_Index(){};
-
+    void update_Document_Base(std::vector<std::string> text);
 };
 
 #endif //SEARCH_ENGINE_INVERTED_INDEX_H
