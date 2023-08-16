@@ -4,23 +4,27 @@
 
 #ifndef SEARCH_ENGINE_CONVERTER_JSON_H
 #define SEARCH_ENGINE_CONVERTER_JSON_H
+#pragma once
+#include <iostream>
 #include <fstream>
 #include <filesystem>
 #include "nlohmann/json.hpp"
 
-using json = nlohmann::json;
+#define VERSION 1
 
+using js = nlohmann::json;
 class Converter_JSON
 {
 private:
-    json in_Put;
+    //state of search engine
+    bool state = false;
+    js json;
 public:
-    Converter_JSON() = default;
-    Converter_JSON(std::string* path);
-
-    void chek_result();
+    Converter_JSON();
+    void start();
     void save_answere();
-
+    int GetResponseLimit();
+    void put_Answere(std::vector<std::pair<int, float>> answere);
 };
 
 

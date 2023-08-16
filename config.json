@@ -1,0 +1,16 @@
+{
+  "config": {
+        "name" : "Search_Engin",
+        "version" : "1",
+        "duration" : 100,
+        "max_responses" : 5
+  },
+  "files":
+    [
+      "../../res/file001.txt",
+      "../../res/file002.txt",
+      "../../res/file003.txt",
+      "../../res/file004.txt",
+      "../../res/file005.txt"
+    ]
+}

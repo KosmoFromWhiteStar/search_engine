@@ -7,4 +7,5 @@ add_executable(search_engine main.cpp
                "${incl_path}/Converter_JSON.h"
                 Converter_JSON.cpp
 )
-target_link_libraries(search_engine PUBLIC nlohmann_json::nlohmann_json)
+
+target_link_libraries(search_engine PRIVATE nlohmann_json::nlohmann_json)
