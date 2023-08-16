@@ -27,9 +27,8 @@ private:
     std::vector<std::string> docs;
     std::map<std::string, std::vector<Entry>> freq_dictionary;
 public:
-    Inverted_Index();
+    Inverted_Index(){};
 
-
-}
+};
 
 #endif //SEARCH_ENGINE_INVERTED_INDEX_H
