@@ -1,11 +1,11 @@
 
 #include "../incl/Converter_JSON.h"
 #include "../incl/Inverted_Index.h"
-#include "gtest/gtest.h"
+#include "../incl/gTest.h"
 
 TEST(sample_test_case, sample_test)
 {
-    EXPECT_EQ(1, 1);
+EXPECT_EQ(1, 1);
 }
 
 

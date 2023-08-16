@@ -1,7 +1,7 @@
 //
 // Created by The_K on 17.08.2023.
 //
-
+#pragma once
 #ifndef SEARCH_ENGINE_INVERTED_INDEX_H
 #define SEARCH_ENGINE_INVERTED_INDEX_H
 #include <iostream>
@@ -27,9 +27,12 @@ class Inverted_Index
 private:
     std::vector<std::string> docs;
     std::map<std::string, std::vector<Entry>> freq_dictionary;
+
 public:
     Inverted_Index(){};
     void update_Document_Base(std::vector<std::string> text);
+    std::vector<Entry> get_Word_Count(const std::string& word);
 };
+
 
 #endif //SEARCH_ENGINE_INVERTED_INDEX_H
