@@ -57,6 +57,7 @@ std::vector<std::string> Converter_JSON::get_Text_Document()
         }
         result.push_back(sentence);
     }
+    return result;
 }
 
 int Converter_JSON::get_Response_Limit() {

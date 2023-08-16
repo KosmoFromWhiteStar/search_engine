@@ -8,7 +8,7 @@ add_executable(search_engine main.cpp
                 Converter_JSON.cpp
                 "${incl_path}/Inverted_Index.h"
                 Inverted_Index.cpp
-        ../incl/gTest.h
+                "${incl_path}/gTest.h"
 )
 
 target_link_libraries(search_engine PRIVATE nlohmann_json::nlohmann_json)
