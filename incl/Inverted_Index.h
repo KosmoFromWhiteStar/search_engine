@@ -1,9 +1,10 @@
 //
 // Created by The_K on 17.08.2023.
 //
-#pragma once
+
 #ifndef SEARCH_ENGINE_INVERTED_INDEX_H
 #define SEARCH_ENGINE_INVERTED_INDEX_H
+#pragma once
 #include <iostream>
 #include <vector>
 #include <map>
@@ -11,6 +12,7 @@
 #include <filesystem>
 #include <thread>
 #include "nlohmann/json.hpp"
+
 
 struct Entry
 {
@@ -25,12 +27,12 @@ struct Entry
 class Inverted_Index
 {
 private:
-    bool state = false;
+    bool state = true;
     std::vector<std::string> docs;
     std::map<std::string, std::vector<Entry>> freq_dictionary;
     class Converter_JSON* json;
 public:
-    Inverted_Index(Converter_JSON* in_json);
+    Inverted_Index() = default;
     void update_Document_Base(std::vector<std::string> text);
     std::vector<Entry> get_Word_Count(const std::string& word);
 };
