@@ -60,6 +60,25 @@ std::vector<std::string> Converter_JSON::get_Text_Document()
     return result;
 }
 
+std::vector<std::string> Converter_JSON::get_Request()
+{
+    std::ifstream file("..//..//requests.json");
+    if(!file.is_open())
+    {
+        std::cerr << "requsets.jsom file isn't open" << std::endl;
+    }
+    js requests;
+    file >> requests;
+    file.close();
+
+    std::vector<std::string> words;
+    for(int i = 0; i < requests["requests"].size(); i++)
+    {
+        words.push_back(requests["requests"][i]);
+    }
+    return words;
+}
+
 int Converter_JSON::get_Response_Limit() {
     if(!state) return 0;
     return json["config"]["max_responses"];

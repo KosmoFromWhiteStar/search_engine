@@ -2,8 +2,8 @@
 // Created by The_K on 17.08.2023.
 //
 
-#ifndef SEARCH_ENGINE_GTEST_H
-#define SEARCH_ENGINE_GTEST_H
+#ifndef SEARCH_ENGINE_GTEST_INDEX_H
+#define SEARCH_ENGINE_GTEST_INDEX_H
 #include "../incl/Inverted_Index.h"
 #include "gtest/gtest.h"
 
@@ -71,4 +71,4 @@ TEST(TestCaseInvertedIndex, TestInvertedIndexMissingWord) {
     TestInvertedIndexFunctionality(docs, requests, expected);
 }
 
-#endif //SEARCH_ENGINE_GTEST_H
+#endif //SEARCH_ENGINE_GTEST_INDEX_H

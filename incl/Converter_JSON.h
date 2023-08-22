@@ -32,6 +32,7 @@ public:
     void start();
     std::vector<std::string> get_Text_Document();
     int get_Response_Limit();
+    std::vector<std::string> get_Request();
     void put_Answere(std::vector<std::vector<std::pair<int, float>>> answere);
 };
 
