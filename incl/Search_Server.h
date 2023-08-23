@@ -10,7 +10,7 @@ struct Relative_Index{
     size_t doc_id;
     float rank;
 
-    bool operator ==(const Relative_Index& other) const {
+    bool operator == (const Relative_Index& other) const {
         return (doc_id == other.doc_id && rank == other.rank);
     }
 };
