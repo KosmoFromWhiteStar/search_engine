@@ -37,5 +37,4 @@ public:
     std::vector<Entry> get_Word_Count(const std::string& word);
 };
 
-
 #endif //SEARCH_ENGINE_INVERTED_INDEX_H

@@ -3,16 +3,11 @@
 //
 #include "../incl/Inverted_Index.h"
 
-
-
-
 void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
     if (!state) {
         std::cerr << "Err" << std::endl;
         return;
     }
-    //
-
     //
     std::string word = "";
     auto fu = [&](int current_file = 0) {
@@ -33,13 +28,19 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
                 if (freq_dictionary.count(word) == 0) {
                     std::vector<Entry> temp = {{(size_t) current_file, 1}};
                     freq_dictionary.insert(std::make_pair(word, temp));
-                } else {
-                    auto ptr = freq_dictionary.find(word);
-                    for (auto &j: ptr->second) {
-                        if (j.doc_id == current_file) {
-                            j.count++;
+                } else
+                {
+                    bool cheked = false;
+                    for(int k = 0; k < freq_dictionary.find(word)->second.size(); k++) {
+                        if (freq_dictionary.find(word)->second[k].doc_id == current_file)
+                        {
+                            freq_dictionary.find(word)->second[k].count++;
+                            cheked = true;
+                            break;
                         }
                     }
+                    if(!cheked)freq_dictionary.find(word)->second.push_back({(size_t)current_file, 1});
+
                 }
                 word = "";
             }

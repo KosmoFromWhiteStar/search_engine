@@ -3,13 +3,10 @@
 #include "../incl/Inverted_Index.h"
 #include "../tests/gTest_Index.h"
 #include "../incl/Search_Server.h"
-
-TEST(sample_test_case, sample_test)
-{
-    EXPECT_EQ(1, 1);
-}
+#include "../tests/gTest_Searc.h"
 
 
-int main() {
-
+int main(int argc, char* argv[]) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

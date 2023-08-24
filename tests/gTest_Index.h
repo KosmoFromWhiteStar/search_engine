@@ -4,14 +4,14 @@
 
 #ifndef SEARCH_ENGINE_GTEST_INDEX_H
 #define SEARCH_ENGINE_GTEST_INDEX_H
-#include "../incl/Inverted_Index.h"
+#pragma once
 #include "gtest/gtest.h"
 
 using namespace std;
 void TestInvertedIndexFunctionality(
         const vector<string>& docs,
         const vector<string>& requests,
-        const std::vector<vector<Entry>>& expected )
+        const std::vector<vector<Entry>>& expected)
 {
     std::vector<std::vector<Entry>> result;
     Inverted_Index idx;
@@ -44,12 +44,12 @@ TEST(TestCaseInvertedIndex, TestBasic2) {
             "milk milk milk milk milk water water water water water",
             "americano cappuccino"
     };
-    const vector<string> requests = {"milk", "water", "cappuchino"};
+    const vector<string> requests = {"milk", "water", "cappuccino"};
     const vector<vector<Entry>> expected = {
             {
                     {0, 4}, {1, 1}, {2, 5}
             }, {
-                    {0, 2}, {1, 2}, {2, 5}
+                    {0, 3}, {1, 2}, {2, 5}
             }, {
                     {3, 1}
             }

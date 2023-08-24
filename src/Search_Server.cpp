@@ -7,36 +7,34 @@
 std::vector<std::vector<Relative_Index>> Search_Server::search(
         const std::vector<std::string>& queries_input)
 {
+
     //Unic words
-    std::vector<std::string> unic_words;
-    for(int i = 0; i < queries_input.size(); i++)
+    std::vector<std::map<std::string, int>> unic_words;
+    for (int i = 0; i < queries_input.size(); i++)
     {
-        bool find_word = false;
-        for(int k = 0; k < unic_words.size(); k++)
-        {
-            if(unic_words[k] == queries_input[i]) find_word = true;
-        }
-        if(!find_word) unic_words.push_back(queries_input[i]);
-    }
 
-    //Sort
-    std::map<std::string, int> temp_list;
-    for(int i = 0; i < unic_words.size(); i++)
-    {
-        std::vector<Entry> temp_vec = _index.get_Word_Count(unic_words[i]);
-        for(int k = 0; k < temp_vec.size(); k++)
+        std::string temp_word = "";
+        for(int j = 0; j < queries_input[i].length(); j++)
         {
-            if(temp_list.count(unic_words[i]) == 0)
+            temp_word += queries_input[i][j];
+            if(temp_word[temp_word.length()-1] == ' '
+            || temp_word[temp_word.length()-1] == queries_input[i][j])
             {
-                temp_list.insert(std::make_pair(unic_words[i], 0));
+
+                if (unic_words[i].count(temp_word) == 0)
+                {
+                    //Если нет слова тут добавляю
+                    unic_words.push_back({std::make_pair(temp_word, 1)});
+                }
+                else {
+                    unic_words[i].find(temp_word)->second++;
+                }
             }
-            temp_list.find(unic_words[i])->second += temp_vec[k].count;
+
         }
     }
-
-
-
-
+    std::cout<< "Here";
+    //Sort word dont
 
 
     std::vector<std::vector<Relative_Index>> result;
