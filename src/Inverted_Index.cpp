@@ -59,7 +59,11 @@ std::vector<Entry> Inverted_Index::get_Word_Count(const std::string &word)
 {
     if(!state){
         std::cerr << "Err" << std::endl;
-        return std::vector<Entry>();
+        return std::vector<Entry>({});
+    }
+    if(freq_dictionary.count(word) == 0)
+    {
+        return std::vector<Entry>({});
     }
     return freq_dictionary.find(word)->second;
 }
