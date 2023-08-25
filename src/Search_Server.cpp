@@ -76,94 +76,18 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
         }
     }
     //
-    for(int i = 0; i < size_quer; i++)
+    std::vector<std::vector<int>> rel;
+    for(int i = 0; i < list.size(); i++)
     {
-        std::vector<int> index;
-        for(int j = 0; j < link_words[i].size(); j++)
-        {
-            for(int k = 0; k < list.size(); k++)
-            {
-                if(list[k] == link_words[i][j])
-                    index.push_back(k);
-            }
-        }
-        std::vector<int> res_abs;
-        for(int j = 0; j < index.size(); j++)
-        {
-
-            for(int k = 0; k < abs_rel[j].size(); k++)
-            {
-                abs_rel[j][k];
-
-            }
-
-
-        }
-
 
 
     }
-
-
-
-
-
 
     /////
     //Result
     int size_request = 5;
     std::vector<std::vector<Relative_Index>> result(size_quer);
-    //loop request
-    for(int i = 0; i < result.size(); i++)
-    {
-        //
-        std::vector<Relative_Index> temp_res;
-        int max = 0;
-        std::vector<size_t> doc_id;
-        std::vector<int> abs_rel;
 
-        //loop word in request
-        for (int j = 0; j < link_words[i].size(); j++)
-        {
-            //
 
-            //
-        }
-
-        //
-        for (int j = 0; j < abs_rel.size(); j++) {
-            if (max < abs_rel[j]) {
-                max = abs_rel[j];
-            }
-        }
-        //
-        for (int j = 0; j < abs_rel.size(); j++)
-        {
-            if(j == 0)
-            {
-                std::cout << "there";
-            }
-
-            temp_res.push_back(
-                    {
-                        doc_id[j],
-                        (float)abs_rel[j]/max
-                    }
-                    );
-        }
-
-        for (int j = 0; j < temp_res.size(); j++)
-        {
-            int sorted = j - 1;
-            while(sorted > - 1 && temp_res[sorted].rank < temp_res[sorted + 1].rank)
-            {
-                std::swap(temp_res[sorted], temp_res[sorted + 1]);
-                sorted--;
-            }
-        }
-        if(temp_res.size() > 5)temp_res.resize(size_request);
-        result[i] = temp_res;
-    }
-    std::cout << "here";
     return result;
 }
