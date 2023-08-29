@@ -8,7 +8,6 @@
 #include <vector>
 #include <map>
 #include <fstream>
-#include <filesystem>
 #include "nlohmann/json.hpp"
 
 #define VERSION "1"

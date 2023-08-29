@@ -57,36 +57,110 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
         }
     }
     //////
+    std::vector<std::vector<int>> index_request(size_quer);
+    for(int i = 0; i < size_quer; i++)
+    {
+        for(int j = 0; j < link_words[i].size();j++)
+        {
+            for(int k = 0; k < list.size(); k++)
+            {
+                if(list[k] == link_words[i][j])
+                    index_request[i].push_back(k);
+            }
+
+        }
+    }
 
     //word     //doc
-    std::vector<std::vector<size_t>> doc_id(list.size());
-    std::vector<std::vector<int>> abs_rel(list.size());
-    //
+    std::vector<std::vector<std::pair<size_t, int>>> doc_id(list.size());
+
     for(int i = 0; i < list.size(); i++)
     {
-        if(_index.get_Word_Count(list[i]).empty())
-        {
-            doc_id[i].push_back(0);
-            abs_rel[i].push_back(0);
-        }
         for(int j = 0; j < _index.get_Word_Count(list[i]).size();j++)
         {
-            doc_id[i].push_back(_index.get_Word_Count(list[i])[j].doc_id);
-            abs_rel[i].push_back(_index.get_Word_Count(list[i])[j].count);
+            doc_id[i].push_back
+            ({
+                    _index.get_Word_Count(list[i])[j].doc_id,
+                    _index.get_Word_Count(list[i])[j].count
+            });
         }
     }
+
+    //Собирает по запросам
+    //запрос   // документ
+    std::vector<std::pair<size_t, int>> table;
     //
-    std::vector<std::vector<int>> rel;
+    std::vector<bool> request_add(size_quer);
+    for(int i = 0; i < size_quer; i++)
+    {
+        request_add[i] = false;
+    }
+    //
     for(int i = 0; i < list.size(); i++)
     {
+        for( int j = 0; j < doc_id[i].size(); j++ )
+        {
+            
 
 
+
+        }
     }
+
 
     /////
     //Result
-    int size_request = 5;
+    int size_request = 4;
     std::vector<std::vector<Relative_Index>> result(size_quer);
+
+    //
+
+    //
+
+    for(int i = 0; i < size_quer; i++)
+    {
+        if(table.empty())
+        {
+            continue;
+        }
+        int max = 0;
+        for(int x = 0; i < table.size(); i++)
+        {
+            if(max < table[x].second)
+            {
+                max = table[x].second;
+            }
+        }
+        for(int j = 0; j < table.size(); j++)
+        {
+            if(j > size_request)
+            {
+                break;
+            }
+            Relative_Index nw =
+                    {
+                        table[j].first,
+                        (float)table[j].second/max
+                    };
+            result[i].push_back(nw);
+        }
+    }
+
+    //Sort
+    for(int i = 0; i < size_quer; i++)
+    {
+        for (int j = 0; j < result[i].size(); j++)
+        {
+            int sorted = j - 1;
+            while(sorted > - 1 && result[i][sorted].rank < result[i][sorted + 1].rank)
+            {
+                std::swap(result[i][sorted], result[i][sorted + 1]);
+                sorted--;
+            }
+        }
+
+    }
+
 
 
     return result;

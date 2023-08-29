@@ -1,4 +1,3 @@
-
 #include "../incl/Converter_JSON.h"
 #include "../incl/Inverted_Index.h"
 #include "../tests/gTest_Index.h"

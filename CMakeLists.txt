@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.25.2)
 project(search_engine)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -19,7 +19,13 @@ enable_testing()
 #Gtest
 
 #JSON lib
-add_subdirectory("${CMAKE_SOURCE_DIR}/incl/nlohmann_json")
+if(search_engine_USE_EXTERNAL_JSON)
+  find_package(nlohmann_json 3.2.0 REQUIRED)
+else()
+  set(JSON_BuildTests OFF CACHE INTERNAL "")
+  add_subdirectory("${CMAKE_SOURCE_DIR}/incl/nlohmann_json")
+endif()
+
 #JSON lib
 
 add_subdirectory(src)
