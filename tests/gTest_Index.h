@@ -5,6 +5,7 @@
 #ifndef SEARCH_ENGINE_GTEST_INDEX_H
 #define SEARCH_ENGINE_GTEST_INDEX_H
 #pragma once
+#include "../incl/Inverted_Index.h"
 #include "gtest/gtest.h"
 
 using namespace std;

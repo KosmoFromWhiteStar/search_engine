@@ -87,8 +87,7 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
     }
 
     //Собирает по запросам
-    //запрос   // документ
-    std::vector<std::pair<size_t, int>> table;
+    std::vector<std::vector<std::pair<size_t, int>>> table(size_quer);
     //
     std::vector<bool> request_add(size_quer);
     for(int i = 0; i < size_quer; i++)
@@ -98,12 +97,49 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
     //
     for(int i = 0; i < list.size(); i++)
     {
-        for( int j = 0; j < doc_id[i].size(); j++ )
+        for(int k = 0; k < size_quer; k++)
         {
-            
+            std::vector<std::pair<size_t, int>> tab_res;
+            for(int z = 0; z < index_request[k].size(); z++)
+            {
+                for(int j = 0; j < doc_id[index_request[k][z]].size(); j++)
+                {
+                    if(doc_id[index_request[k][z]].empty())
+                    {
+                        continue;
+                    }
+                    if(tab_res.empty())
+                    {
+                        tab_res.push_back(
+                            {
+                                doc_id[index_request[k][z]][j].first,
+                                doc_id[index_request[k][z]][j].second
+                            });
+                            continue;
+                    }
+                    bool find = false;
+                    for(int x = 0; x < tab_res.size(); x++)
+                    {
+                        if(doc_id[index_request[k][z]][j].first == tab_res[x].first)
+                        {
+                            tab_res[x].second += doc_id[index_request[k][z]][j].second;
+                            find = true;
+                        }
+                       
+                    }
+                    if(!find)
+                    {
+                            
+                        tab_res.push_back(
+                        {
+                            doc_id[index_request[k][z]][j].first,
+                            doc_id[index_request[k][z]][j].second
+                        });
+                    }
 
-
-
+                }
+            }
+            table[k] = tab_res;
         }
     }
 
@@ -112,26 +148,22 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
     //Result
     int size_request = 4;
     std::vector<std::vector<Relative_Index>> result(size_quer);
-
     //
-
-    //
-
     for(int i = 0; i < size_quer; i++)
     {
-        if(table.empty())
+        if(table[i].empty())
         {
             continue;
         }
         int max = 0;
-        for(int x = 0; i < table.size(); i++)
+        for(int x = 0; x < table[i].size(); x++)
         {
-            if(max < table[x].second)
+            if(max < table[i][x].second)
             {
-                max = table[x].second;
+                max = table[i][x].second;
             }
         }
-        for(int j = 0; j < table.size(); j++)
+        for(int j = 0; j < table[i].size(); j++)
         {
             if(j > size_request)
             {
@@ -139,8 +171,8 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
             }
             Relative_Index nw =
                     {
-                        table[j].first,
-                        (float)table[j].second/max
+                        table[i][j].first,
+                        (float)table[i][j].second/max
                     };
             result[i].push_back(nw);
         }
@@ -160,8 +192,6 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
         }
 
     }
-
-
 
     return result;
 }
