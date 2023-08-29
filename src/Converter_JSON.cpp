@@ -79,13 +79,15 @@ std::vector<std::string> Converter_JSON::get_Request()
     return words;
 }
 
-int Converter_JSON::get_Response_Limit() {
+int Converter_JSON::get_Response_Limit() 
+{
     if(!state) return 0;
     return json["config"]["max_responses"];
 }
 
-void Converter_JSON::put_Answere(std::vector< std::vector< std::pair<int, float> > > answere)
+void Converter_JSON::put_Answere(std::vector< std::vector< std::pair<size_t, float> > > answere)
 {
+    LINE("Put answere");
     std::ofstream file("..//..//answere.json");
     if(!file.is_open())
     {

@@ -11,12 +11,11 @@
 #include "nlohmann/json.hpp"
 
 #define VERSION "1"
-
 #define TRUE "\"true\",\n"
 #define FALSE "\"false\"\n}"
 #define DOC_ID "\"doc_id\" : "
 #define RANK  ", \"rank\" : "
-#define LINE(s) std::cout << "========[\t" << s << "\t]========" << std::endl
+#define LINE(s) std::cout << "========[ " << s << "\t]========" << std::endl
 
 using js = nlohmann::json;
 class Converter_JSON
@@ -32,7 +31,7 @@ public:
     std::vector<std::string> get_Text_Document();
     int get_Response_Limit();
     std::vector<std::string> get_Request();
-    void put_Answere(std::vector<std::vector<std::pair<int, float>>> answere);
+    void put_Answere(std::vector<std::vector<std::pair<size_t, float>>> answere);
 };
 
 
