@@ -89,6 +89,7 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
     for(int i = 0; i < flows.size(); i++)
     {
         flows[i]->join();
+        flows[i] = nullptr;
     }
     //
 }

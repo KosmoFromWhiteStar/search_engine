@@ -11,7 +11,7 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
     std::map<std::string, int> unic_words;
     std::vector<std::string> list;
     std::vector< std::vector < std::string > > link_words(size_quer);
-
+    std::vector<std::vector<int>> index_request(size_quer);
 
     //Unic words and Search in files
     for (int i = 0; i < size_quer; i++)
@@ -53,27 +53,12 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
         while(sorted > - 1 && unic_words.find(list[sorted])->second > unic_words.find(list[sorted+1])->second)
         {
             std::swap(list[sorted], list[sorted+1]);
+            
             sorted--;
         }
     }
-    //////
-    std::vector<std::vector<int>> index_request(size_quer);
-    for(int i = 0; i < size_quer; i++)
-    {
-        for(int j = 0; j < link_words[i].size();j++)
-        {
-            for(int k = 0; k < list.size(); k++)
-            {
-                if(list[k] == link_words[i][j])
-                    index_request[i].push_back(k);
-            }
-
-        }
-    }
-
     //word     //doc
     std::vector<std::vector<std::pair<size_t, int>>> doc_id(list.size());
-
     for(int i = 0; i < list.size(); i++)
     {
         for(int j = 0; j < _index.get_Word_Count(list[i]).size();j++)
@@ -85,16 +70,22 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
             });
         }
     }
+    
+    for(int i = 0; i < size_quer; i++)
+    {
+        for(int j = 0; j < link_words[i].size();j++)
+        {
+            for(int k = 0; k < list.size(); k++)
+            {
+                if(list[k] == link_words[i][j])
+                    index_request[i].push_back(k);
+            }
+        }
+    }
 
     //Собирает по запросам
     std::vector<std::vector<std::pair<size_t, int>>> table(size_quer);
-    //
-    std::vector<bool> request_add(size_quer);
-    for(int i = 0; i < size_quer; i++)
-    {
-        request_add[i] = false;
-    }
-    //
+
     for(int i = 0; i < list.size(); i++)
     {
         for(int k = 0; k < size_quer; k++)
@@ -104,10 +95,6 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
             {
                 for(int j = 0; j < doc_id[index_request[k][z]].size(); j++)
                 {
-                    if(doc_id[index_request[k][z]].empty())
-                    {
-                        continue;
-                    }
                     if(tab_res.empty())
                     {
                         tab_res.push_back(
@@ -125,26 +112,21 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
                             tab_res[x].second += doc_id[index_request[k][z]][j].second;
                             find = true;
                         }
-                       
                     }
                     if(!find)
                     {
-                            
                         tab_res.push_back(
                         {
                             doc_id[index_request[k][z]][j].first,
                             doc_id[index_request[k][z]][j].second
                         });
                     }
-
                 }
             }
             table[k] = tab_res;
         }
     }
 
-
-    /////
     //Result
     int size_request = 4;
     std::vector<std::vector<Relative_Index>> result(size_quer);
@@ -155,6 +137,7 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
         {
             continue;
         }
+        
         int max = 0;
         for(int x = 0; x < table[i].size(); x++)
         {
@@ -163,18 +146,18 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
                 max = table[i][x].second;
             }
         }
+        
         for(int j = 0; j < table[i].size(); j++)
         {
             if(j > size_request)
             {
                 break;
-            }
-            Relative_Index nw =
-                    {
-                        table[i][j].first,
-                        (float)table[i][j].second/max
-                    };
-            result[i].push_back(nw);
+            }          
+            result[i].push_back(
+                {
+                    table[i][j].first,
+                    (float)table[i][j].second/max
+                });
         }
     }
 
@@ -190,7 +173,6 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
                 sorted--;
             }
         }
-
     }
 
     return result;
