@@ -10,6 +10,7 @@
 #include <map>
 #include <fstream>
 #include <thread>
+#include <atomic>
 #include "nlohmann/json.hpp"
 
 

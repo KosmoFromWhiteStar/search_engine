@@ -47,9 +47,12 @@ std::vector<std::string> Converter_JSON::get_Text_Document()
         std::string sentence = "";
         if(file.is_open())
         {
-            std::string word;
-            file >> word;
-            sentence+= word;
+            while (!file.eof())
+            {
+                std::string word;
+                file >> word;
+                sentence += word + ' '; 
+            }   
         }
         else
         {
@@ -85,7 +88,7 @@ int Converter_JSON::get_Response_Limit()
     return json["config"]["max_responses"];
 }
 
-void Converter_JSON::put_Answere(std::vector< std::vector< std::pair<size_t, float> > > answere)
+void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float>>> answere)
 {
     LINE("Put answere");
     std::ofstream file("..//..//answere.json");
@@ -97,19 +100,35 @@ void Converter_JSON::put_Answere(std::vector< std::vector< std::pair<size_t, flo
     file << "{\n\"answers\": {\n";
     for(int i = 0; i < answere.size(); i++)
     {
-        file << ("\"request"+std::to_string(i)) << "\": {";
-        file << "\"result\": ";
-        if(!answere[i].empty())
+        file << REQUEST(i);
+        if(answere[i].empty())
         {
-            file << TRUE;
-            for(int j = 0; i < answere[i].size(); j++)
+            file << FALSE;
+            if(!(i + 1 == answere.size()))
             {
-                file << DOC_ID << answere[i][j].first
-                << RANK << answere[i][j].second;
+                file << ',';
             }
+            continue;
         }
-        else { file << FALSE; }
+        file << TRUE;
+        for(int j = 0; j < answere[i].size(); j++)
+        {
+            file << DOC_ID << answere[i][j].first
+            << RANK << answere[i][j].second;
+            if(!(j + 1 == answere[i].size()))
+            {
+                file << ",";
+            }
+            file << '\n';
+        }
+        file << "}";
+        if(!(i + 1 == answere.size()))
+        {
+            file << ',';
+        }
+        file << '\n';
     }
+    file << "}\n";
     file << "}";
     file.close();
 }

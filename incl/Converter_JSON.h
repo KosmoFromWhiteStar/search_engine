@@ -11,11 +11,14 @@
 #include "nlohmann/json.hpp"
 
 #define VERSION "1"
-#define TRUE "\"true\",\n"
-#define FALSE "\"false\"\n}"
+
+#define REQUEST(x) ("\"request" + std::to_string((x)) + "\" : {\n")
+#define TRUE "\"result\": \"true\",\n"
+#define FALSE "\"result\": \"false\"\n}"
+#define REL "\"relevance\" : {\n"
 #define DOC_ID "\"doc_id\" : "
 #define RANK  ", \"rank\" : "
-#define LINE(s) std::cout << "========[ " << s << "\t]========" << std::endl
+#define LINE(s) std::cout << "========[ " << (s) << " ]========" << std::endl
 
 using js = nlohmann::json;
 class Converter_JSON

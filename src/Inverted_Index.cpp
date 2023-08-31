@@ -10,7 +10,22 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
     }
     //
     std::string word = "";
+    std::vector<std::atomic<bool>> done(std::thread::hardware_concurrency());
+    for(int i = 0; i < done.size(); i++)
+    {
+        done[i] = true;
+    }
     auto fu = [&](int current_file = 0) {
+        std::atomic<bool>* ptr_thread;
+        for(int i = 0; i < done.size(); i++)
+        {
+            if(done[i])
+            {
+                done[i] = false;
+                ptr_thread = &done[i];
+                break;
+            }
+        }
 
         //for catch last word
         text[current_file] += " ";
@@ -45,12 +60,35 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
                 word = "";
             }
         }
+
+        //Clear thread
+        *ptr_thread = true;
     };
 
     //Here will be thread
+    std::vector<std::thread*> flows;
+    int count_thread = 0;
     for(int i = 0; i < text.size(); i++)
+    {   
+        bool next = false;
+        do{
+            for(int j = 0; j < done.size(); j++)
+            {
+                if(done[j])
+                {
+                    next = true;
+                    break;
+                }
+
+            }
+        }while(!next);
+        std::thread* stream = new std::thread( fu, i );
+        flows.push_back(stream);
+    }
+
+    for(int i = 0; i < flows.size(); i++)
     {
-        fu(i);
+        flows[i]->join();
     }
     //
 }
