@@ -14,7 +14,7 @@
   7. В конце программа формирует файл answers.json, в который записывает результаты поиска.
 
 ## Технологии в проекте
-Для работы с JSON-файлами используется ["JSON for Modern C++"](https://github.com/nlohmann/json)
+Для работы с JSON-файлами используется ["JSON for Modern C++"](https://github.com/nlohmann/json).
 Для проверки работы отдельных классов используется [Gtest](https://github.com/google/googletest)
 
 ## Нюансы
