@@ -15,7 +15,7 @@
 
 ## Технологии в проекте
 Для работы с JSON-файлами используется ["JSON for Modern C++"](https://github.com/nlohmann/json)
-Для проверки работы отдельных классов используется ["Gtest"](https://github.com/google/googletest)
+Для проверки работы отдельных классов используется [Gtest](https://github.com/google/googletest)
 
 ## Нюансы
 1. Индексирование файлов происходит в многопоточном режиме.
