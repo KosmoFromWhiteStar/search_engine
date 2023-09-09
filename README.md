@@ -32,4 +32,5 @@
 ##Тесты
 
 Сами тесты в папке [test](https://github.com/KosmoFromWhiteStar/search_engine/tree/master/tests)
+Вывод самих тестов
 ![image](https://github.com/KosmoFromWhiteStar/search_engine/assets/104075230/b95413a6-23cd-4e11-be06-c25f9739c7fd)
