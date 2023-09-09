@@ -33,7 +33,7 @@
 
 ## Запуск
 ```
-  <build_dir>\src\search_engine.exe
+<build_dir>\src\search_engine.exe
 ```
 
 ## Тесты
