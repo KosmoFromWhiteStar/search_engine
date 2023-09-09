@@ -26,8 +26,10 @@
 
 ## Установка
 Сборка:
+  ```
   cmake -S <source_dir> -B <build_dir> -G "MinGW Makefiles"
   cmake --build <build_dir>
+  ```
 
 ## Тесты
 
