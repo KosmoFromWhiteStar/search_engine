@@ -30,7 +30,10 @@
   cmake -S <source_dir> -B <build_dir> -G "MinGW Makefiles"
   cmake --build <build_dir>
   ```
-
+## Запуск
+```
+  <build_dir>\src\search_engine.exe
+```
 ## Тесты
 
 Сами тесты в папке [test](https://github.com/KosmoFromWhiteStar/search_engine/tree/master/tests)
