@@ -22,3 +22,12 @@
 1. Индексирование файлов происходит в многопоточном режиме.
 2. Сортировка происходит вставками, что не подходит для большого количества данных
 3. Пути для рессурсов могут не соответствовать.
+4. Тесты запускаются при запуске программы.
+
+## Установка
+Сборка:
+  cmake -S <source_dir> -B <build_dir> -G "MinGW Makefiles"
+  cmake --build <build_dir>
+##Тесты
+Сами тесты в папке [test](https://github.com/KosmoFromWhiteStar/search_engine/tree/master/tests)
+![image](https://github.com/KosmoFromWhiteStar/search_engine/assets/104075230/b95413a6-23cd-4e11-be06-c25f9739c7fd)
