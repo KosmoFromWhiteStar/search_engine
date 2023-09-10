@@ -14,9 +14,32 @@
   7. В конце программа формирует файл answers.json, в который записывает результаты поиска.
 
 ## Технологии в проекте
-Для работы с JSON-файлами используется ["JSON for Modern C++"](https://github.com/nlohmann/json)
+  Для работы с JSON-файлами используется ["JSON for Modern C++"](https://github.com/nlohmann/json).
+  
+  Для проверки работы отдельных классов используется [Gtest](https://github.com/google/googletest)
 
 ## Нюансы
 1. Индексирование файлов происходит в многопоточном режиме.
 2. Сортировка происходит вставками, что не подходит для большого количества данных
-3. Пути для рессурсов могут не соответствовать.
+3. Пути для ресурсов могут не соответствовать.
+4. Тесты запускаются при запуске программы.
+
+## Установка
+Сборка:
+  ```
+  cmake -S <source_dir> -B <build_dir> -G "MinGW Makefiles"
+  cmake --build <build_dir>
+  ```
+
+## Запуск
+```
+<build_dir>\src\search_engine.exe
+```
+
+## Тесты
+
+Сами тесты в папке [test](https://github.com/KosmoFromWhiteStar/search_engine/tree/master/tests)
+
+Вывод самих тестов:
+
+![image](https://github.com/KosmoFromWhiteStar/search_engine/assets/104075230/b95413a6-23cd-4e11-be06-c25f9739c7fd)
