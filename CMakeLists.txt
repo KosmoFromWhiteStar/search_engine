@@ -15,7 +15,6 @@ set(gtest_disable_pthreads on)
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 enable_testing()
-
 #Gtest
 
 #JSON lib

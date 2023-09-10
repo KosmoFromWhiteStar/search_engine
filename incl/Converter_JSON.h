@@ -24,7 +24,7 @@ using js = nlohmann::json;
 class Converter_JSON
 {
 private:
-    js json;
+    js file_j;
     //state of search engine
     bool state = false;
 

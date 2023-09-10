@@ -128,7 +128,7 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
     }
 
     //Result
-    int size_request = 4;
+
     std::vector<std::vector<Relative_Index>> result(size_quer);
     //
     for(int i = 0; i < size_quer; i++)
@@ -149,7 +149,7 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
         
         for(int j = 0; j < table[i].size(); j++)
         {
-            if(j > size_request)
+            if(j > response_limit)
             {
                 break;
             }          
@@ -177,3 +177,14 @@ std::vector<std::vector<Relative_Index>> Search_Server::search(
 
     return result;
 }
+
+void Search_Server::set_response_limit(int val)
+{
+    if(val < 0)
+    {
+        std::cout << "Invalid response limit" << std::endl;
+    }
+    if(val > 100) std::cout << "Big limit" << std::endl;
+    else response_limit = val - 1;
+}
+

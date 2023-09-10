@@ -15,14 +15,14 @@ Converter_JSON::Converter_JSON()
         std::cerr << "Config file is missing" << std::endl;
         return;
     }
-    file >> json;
+    file >> file_j;
     //
-    if(json["config"] == nullptr)
+    if(file_j["config"] == nullptr)
     {
         std::cerr << "Config is empty" << std::endl;
         return;
     }
-    if(json["config"]["version"] != VERSION)
+    if(file_j["config"]["version"] != VERSION)
     {
         std::cerr << "Config.json has incorrect file version" << std::endl;
         return;
@@ -34,16 +34,17 @@ Converter_JSON::Converter_JSON()
 void Converter_JSON::start() {
     if(!state) return;
     LINE("Start");
-    std::cout << "Name engine: " << json["config"]["name"] << std::endl;
-    std::cout << "Version: " << json["config"]["version"] << std::endl;
+    std::cout << "Name engine: " << file_j["config"]["name"] << std::endl;
+    std::cout << "Version: " << file_j["config"]["version"] << std::endl;
 }
 
 std::vector<std::string> Converter_JSON::get_Text_Document()
 {
     std::vector<std::string> result;
-    for(int i = 0; i < json["files"].size(); i++)
+    for(int i = 0; i < file_j["files"].size(); i++)
     {
-        std::ifstream file (json["files"][i]);
+        std::string path = file_j["files"][i];
+        std::ifstream file (path);
         std::string sentence = "";
         if(file.is_open())
         {
@@ -56,7 +57,7 @@ std::vector<std::string> Converter_JSON::get_Text_Document()
         }
         else
         {
-            std::cerr << json["files"][i] << " isn't work" << std::endl;
+            std::cerr << file_j["files"][i] << " isn't work" << std::endl;
         }
         result.push_back(sentence);
     }
@@ -85,7 +86,7 @@ std::vector<std::string> Converter_JSON::get_Request()
 int Converter_JSON::get_Response_Limit() 
 {
     if(!state) return 0;
-    return json["config"]["max_responses"];
+    return file_j["config"]["max_responses"];
 }
 
 void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float>>> answere)
@@ -113,6 +114,7 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
         file << TRUE;
         for(int j = 0; j < answere[i].size(); j++)
         {
+            file << REL;
             file << DOC_ID << answere[i][j].first
             << RANK << answere[i][j].second;
             if(!(j + 1 == answere[i].size()))

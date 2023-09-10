@@ -19,9 +19,12 @@ class Search_Server
 {
 private:
     Inverted_Index _index;
+    int response_limit = 4;
 public:
     Search_Server(Inverted_Index& idx) : _index(idx){ };
     std::vector<std::vector<Relative_Index>> search(
             const std::vector<std::string>& queries_input);
+    void set_response_limit(int val);
+
 };
 #endif //SEARCH_ENGINE_SEARCH_SERVER_H
