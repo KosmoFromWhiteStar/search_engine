@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 3.25.2)
 set(incl_path "${CMAKE_SOURCE_DIR}/incl")
 set(test_path "${CMAKE_SOURCE_DIR}/tests")
 
-
-    add_executable(search_engine
+add_executable(search_engine
             test.cpp
             "${incl_path}/Converter_JSON.h"
             Converter_JSON.cpp
