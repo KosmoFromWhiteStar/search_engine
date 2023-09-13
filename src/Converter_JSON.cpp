@@ -96,6 +96,7 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
     if(!file.is_open())
     {
         std::cout << "Answere file isn't open" << std::endl;
+        return;
     }
 
     file << "{\n\"answers\": {\n";
@@ -109,24 +110,26 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
             {
                 file << ',';
             }
-            continue;
         }
-        file << TRUE;
-        for(int j = 0; j < answere[i].size(); j++)
+        else
         {
+            file << TRUE;
             file << REL;
-            file << DOC_ID << answere[i][j].first
-            << RANK << answere[i][j].second;
-            if(!(j + 1 == answere[i].size()))
+            for(int j = 0; j < answere[i].size(); j++)
             {
-                file << ",";
+                file << DOC_ID << answere[i][j].first
+                << RANK << answere[i][j].second;
+                if(!(j + 1 == answere[i].size()))
+                {
+                    file << ',';
+                }
+                file << std::endl;
             }
-            file << '\n';
-        }
-        file << "}";
-        if(!(i + 1 == answere.size()))
-        {
-            file << ',';
+            file << '}';
+            if(!(i + 1 == answere.size()))
+            {
+                file << ',';
+            }
         }
         file << '\n';
     }
