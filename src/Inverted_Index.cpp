@@ -16,13 +16,13 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
         done[i] = true;
     }
     auto fu = [&](int current_file = 0) {
-        std::atomic<bool>* ptr_thread;
+        int index_done = 0;
         for(int i = 0; i < done.size(); i++)
         {
             if(done[i])
             {
                 done[i] = false;
-                ptr_thread = &done[i];
+                index_done = i;
                 break;
             }
         }
@@ -37,7 +37,15 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
             if (word[word.length() - 1] == ' ')
             {
                 //Clear word
-                word.erase(word.find(' '), 1);
+                std::string temp = "";
+                for(int l = 0; l < word.length(); l++)
+                {
+                    if(word[l] != ' ')
+                    {
+                        temp += word[l];
+                    }
+                }
+                word = temp;
 
                 //add word to dictionary
                 if (freq_dictionary.count(word) == 0) {
@@ -60,14 +68,12 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
                 word = "";
             }
         }
-
         //Clear thread
-        *ptr_thread = true;
+        done[index_done] = true;
     };
 
     //Here will be thread
     std::vector<std::thread*> flows;
-    int count_thread = 0;
     for(int i = 0; i < text.size(); i++)
     {   
         bool next = false;
@@ -85,7 +91,6 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
         std::thread* stream = new std::thread( fu, i );
         flows.push_back(stream);
     }
-
     for(int i = 0; i < flows.size(); i++)
     {
         flows[i]->join();
