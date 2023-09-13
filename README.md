@@ -32,8 +32,13 @@
   ```
 
 ## Запуск
+Программы:
 ```
 <build_dir>\src\search_engine.exe
+```
+Тестов:
+```
+<build_dir>\tests\test.exe
 ```
 
 ## Тесты
