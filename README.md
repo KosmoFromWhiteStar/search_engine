@@ -53,25 +53,27 @@
 !!! Файл при каждом поиске обновляется и не содержит информации предыдущего поиска!!!
 ```
 {
-"answers": {
-"request001": {
-"result": "true",
-"relevance": {
-"docid": 0, “rank” : 0.989,
-"docid": 1, “rank” : 0.897,
-"docid": 2, “rank” : 0.750,
-"docid": 3, “rank” : 0.670,
-"docid": 4, “rank” : 0.561
-}
-},
-"request002": {
-"result": "true",
-"docid": 0, “rank” : 0.769
-},
-"request003": {
-"result": "false"
-}
-}
+  "answers": {
+    "request001": {
+      "result": "true",
+      "relevance": {
+        "docid": 0, “rank” : 0.989,
+        "docid": 1, “rank” : 0.897,
+        "docid": 2, “rank” : 0.750,
+        "docid": 3, “rank” : 0.670,
+        "docid": 4, “rank” : 0.561
+        }
+    },
+    "request002": {
+      "result": "true",
+      "relevance": {
+        "docid": 0, “rank” : 0.769
+        }
+      },
+    "request003": {
+        "result": "false"
+        }
+  }
 }
 ```
 
