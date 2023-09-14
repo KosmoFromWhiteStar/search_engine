@@ -66,9 +66,7 @@
     },
     "request002": {
       "result": "true",
-      "relevance": {
-        "docid": 0, “rank” : 0.769
-        }
+      "docid": 0, “rank” : 0.769
       },
     "request003": {
         "result": "false"
