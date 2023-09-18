@@ -7,14 +7,11 @@ set(incl_path "${CMAKE_SOURCE_DIR}/incl")
 set(test_path "${CMAKE_SOURCE_DIR}/tests")
 set(src_path "${CMAKE_SOURCE_DIR}/src")
 set(test_path "${CMAKE_SOURCE_DIR}/tests")
+set(conf_path "${CMAKE_SOURCE_DIR}/Conf")
 
 #JSON lib
-if(search_engine_USE_EXTERNAL_JSON)
-  find_package(nlohmann_json 3.2.0 REQUIRED)
-else()
-  set(JSON_BuildTests OFF CACHE INTERNAL "")
-  add_subdirectory("${CMAKE_SOURCE_DIR}/incl/nlohmann_json")
-endif()
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+add_subdirectory("${CMAKE_SOURCE_DIR}/incl/nlohmann_json")
 #JSON lib
 
 add_subdirectory(tests)

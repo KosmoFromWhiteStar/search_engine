@@ -10,23 +10,15 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
     }
     //
     std::string word = "";
+    //Контроль состояния потоков и контроль выхода за предел
     std::vector<std::atomic<bool>> done(std::thread::hardware_concurrency());
     for(int i = 0; i < done.size(); i++)
     {
         done[i] = true;
     }
-    auto fu = [&](int current_file = 0) {
-        int index_done = 0;
-        for(int i = 0; i < done.size(); i++)
-        {
-            if(done[i])
-            {
-                done[i] = false;
-                index_done = i;
-                break;
-            }
-        }
-
+    //Лямбда функция для индексировангия
+    auto fu = [&](int index_done, int current_file = 0) {
+        done[index_done] = false;
         //for catch last word
         text[current_file] += " ";
         for (int i = 0; i < text[current_file].length(); i++)
@@ -71,30 +63,36 @@ void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
         //Clear thread
         done[index_done] = true;
     };
-
-    //Here will be thread
-    std::vector<std::thread*> flows;
+    //Вектор потоков (многопоточность)
+    std::vector<std::thread*> flows(std::thread::hardware_concurrency());
+    //Открытие нового потока
     for(int i = 0; i < text.size(); i++)
-    {   
+    {
         bool next = false;
         do{
             for(int j = 0; j < done.size(); j++)
             {
                 if(done[j])
                 {
+                    if(flows[j] != NULL) flows[j]->join();
                     next = true;
+                    flows[j] = new std::thread( fu, j , i );
                     break;
                 }
-
             }
         }while(!next);
-        std::thread* stream = new std::thread( fu, i );
-        flows.push_back(stream);
     }
+    //Закрытие потоков
     for(int i = 0; i < flows.size(); i++)
     {
-        flows[i]->join();
-        flows[i] = nullptr;
+        if(flows[i] != nullptr) {
+            flows[i]->join();
+            flows[i] = nullptr;
+        }
+        if(std::thread::hardware_concurrency() > text.size() && i > text.size())
+        {
+            return;
+        }
     }
     //
 }

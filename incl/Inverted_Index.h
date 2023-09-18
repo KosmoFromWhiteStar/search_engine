@@ -27,13 +27,26 @@ struct Entry
 class Inverted_Index
 {
 private:
+    //Состояние работы класса
     bool state = true;
-    std::vector<std::string> docs;
-    std::map<std::string, std::vector<Entry>> freq_dictionary;
-    class Converter_JSON* json;
+    std::vector<std::string> docs; // список содержимого документов
+    std::map<std::string, std::vector<Entry>> freq_dictionary; // частотный словарь
+
 public:
+    //Конструктор
     Inverted_Index() = default;
+
+    /**
+    * Обновить или заполнить базу документов, по которой будем совершать поиск
+    * @param texts содержимое документов
+    **/
     void update_Document_Base(std::vector<std::string> text);
+
+    /**
+    * Метод определяет количество вхождений слова word в загруженной базе документов
+    * @param word слово, частоту вхождений которого необходимо определить
+    * @return возвращает подготовленный список с частотой слов
+    */
     std::vector<Entry> get_Word_Count(const std::string& word);
 };
 

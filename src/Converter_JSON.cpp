@@ -8,7 +8,7 @@
 Converter_JSON::Converter_JSON()
 {
     std::ifstream file;
-    file.open("..//..//config.json");
+    file.open(path + "config.json");
     //
     if(!(file.is_open()))
     {
@@ -66,7 +66,7 @@ std::vector<std::string> Converter_JSON::get_Text_Document()
 
 std::vector<std::string> Converter_JSON::get_Request()
 {
-    std::ifstream file("..//..//requests.json");
+    std::ifstream file(path + "requests.json");
     if(!file.is_open())
     {
         std::cerr << "requsets.jsom file isn't open" << std::endl;
@@ -92,7 +92,7 @@ int Converter_JSON::get_Response_Limit()
 void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float>>> answere)
 {
     LINE("Put answere");
-    std::ofstream file("..//..//answere.json");
+    std::ofstream file(path + "answere.json");
     if(!file.is_open())
     {
         std::cout << "Answere file isn't open" << std::endl;
@@ -102,7 +102,18 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
     file << "{\n\"answers\": {\n";
     for(int i = 0; i < answere.size(); i++)
     {
-        file << REQUEST(i);
+        std::string number = "";
+        if(i < 10)
+        {
+            number = "00" + std::to_string(i + 1);
+        }
+        else if(i < 100)
+        {
+            number = "0" + std::to_string(i + 1);
+        }
+        else number = std::to_string(i + 1);
+
+        file << REQUEST(number);
         if(answere[i].empty())
         {
             file << FALSE;
@@ -114,7 +125,7 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
         else
         {
             file << TRUE;
-            file << REL;
+            if(answere[i].size() > 1) file << REL;
             for(int j = 0; j < answere[i].size(); j++)
             {
                 file << DOC_ID << answere[i][j].first
@@ -125,7 +136,7 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
                 }
                 file << std::endl;
             }
-            file << '}';
+            file << '}' << '}';
             if(!(i + 1 == answere.size()))
             {
                 file << ',';
