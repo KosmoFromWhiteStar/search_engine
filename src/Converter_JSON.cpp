@@ -31,6 +31,32 @@ Converter_JSON::Converter_JSON()
     file.close();
 }
 
+Converter_JSON::Converter_JSON(std::string in_path) : path(in_path)
+{
+    std::ifstream file;
+    file.open(path + "config.json");
+    //
+    if(!(file.is_open()))
+    {
+        std::cerr << "Config file is missing" << std::endl;
+        return;
+    }
+    file >> file_j;
+    //
+    if(file_j["config"] == nullptr)
+    {
+        std::cerr << "Config is empty" << std::endl;
+        return;
+    }
+    if(file_j["config"]["version"] != VERSION)
+    {
+        std::cerr << "Config.json has incorrect file version" << std::endl;
+        return;
+    }
+    state = true;
+    file.close();
+}
+
 void Converter_JSON::start() {
     if(!state) return;
     LINE("Start");
@@ -148,5 +174,7 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
     file << "}";
     file.close();
 }
+
+
 
 

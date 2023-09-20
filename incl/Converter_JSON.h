@@ -36,7 +36,7 @@ private:
 public:
     //Конструктор
     Converter_JSON();
-    Converter_JSON(std::string in_path) : path(in_path){};
+    Converter_JSON(std::string in_path);;
 
     //First method to start this class
     void start();
@@ -69,6 +69,7 @@ public:
      * @param result of search (dont converted result Search_Server::search())
      **/
     void put_Answere(std::vector<std::vector<std::pair<size_t, float>>> answere);
+    js get_js(){return file_j;}
 };
 
 
