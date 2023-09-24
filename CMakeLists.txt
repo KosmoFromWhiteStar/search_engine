@@ -16,6 +16,5 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/incl/nlohmann_json")
 
 add_subdirectory(tests)
 add_subdirectory(src)
-add_subdirectory(Qt_Vers)
 
 set(JSON_BuildTests OFF CACHE INTERNAL "")
