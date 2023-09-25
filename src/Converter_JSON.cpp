@@ -66,6 +66,11 @@ void Converter_JSON::start() {
 
 std::vector<std::string> Converter_JSON::get_Text_Document()
 {
+    if(!state)
+    {
+        std::cout << "Err" << std::endl;
+        return std::vector<std::string> {};
+    }
     std::vector<std::string> result;
     for(int i = 0; i < file_j["files"].size(); i++)
     {
@@ -92,10 +97,15 @@ std::vector<std::string> Converter_JSON::get_Text_Document()
 
 std::vector<std::string> Converter_JSON::get_Request()
 {
+    if(!state) {
+        std::cout << "Err" << std::endl;
+        return std::vector<std::string>{};
+    }
     std::ifstream file(path + "requests.json");
     if(!file.is_open())
     {
         std::cerr << "requsets.jsom file isn't open" << std::endl;
+        state = false;
     }
     js requests;
     file >> requests;
@@ -117,6 +127,10 @@ int Converter_JSON::get_Response_Limit()
 
 void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float>>> answere)
 {
+    if(!state) {
+        std::cout << "Err" << std::endl;
+        return;
+    }
     LINE("Put answere");
     std::ofstream file(path + "answere.json");
     if(!file.is_open())

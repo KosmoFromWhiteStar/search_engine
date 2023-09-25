@@ -3,9 +3,15 @@
 #include "../incl/Search_Server.h"
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     Converter_JSON json_file;
     json_file.start();
+    if(!json_file.get_state())
+    {
+        std::cerr << "Chek the path configuration direction" << std::endl;
+        return -1;
+    }
     Inverted_Index ind;
     ind.update_Document_Base(json_file.get_Text_Document());
 
