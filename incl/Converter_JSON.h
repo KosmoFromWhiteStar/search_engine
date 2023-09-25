@@ -70,6 +70,7 @@ public:
      **/
     void put_Answere(std::vector<std::vector<std::pair<size_t, float>>> answere);
     js get_js(){return file_j;}
+    bool get_state(){return state;}
 };
 
 

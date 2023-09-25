@@ -3,7 +3,8 @@
 //
 #include "../incl/Inverted_Index.h"
 
-void Inverted_Index::update_Document_Base(std::vector<std::string> text) {
+void Inverted_Index::update_Document_Base(std::vector<std::string> text)
+{
     if (!state) {
         std::cerr << "Err" << std::endl;
         return;
