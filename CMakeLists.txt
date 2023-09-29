@@ -16,5 +16,7 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/incl/nlohmann_json")
 
 add_subdirectory(tests)
 add_subdirectory(src)
+file(COPY Conf DESTINATION .)
+FILE(COPY res DESTINATION .)
 
 set(JSON_BuildTests OFF CACHE INTERNAL "")
