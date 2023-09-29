@@ -32,7 +32,7 @@ private:
     //состояние класса.
     bool state = false;
     //Путь к папке с конфигурацией
-    std::string path = "..//..//Conf/";
+    std::string path = ".//Conf/";
 public:
     //Конструктор
     Converter_JSON();

@@ -5,20 +5,11 @@
 
 int main(int argc, char* argv[])
 {
-    std::cout << "Input path: " << std::endl;
-    std::string str;
-    std::cin >> str;
-    Converter_JSON json_file(str);
+    Converter_JSON json_file;
     if(!json_file.get_state())
     {
         std::cerr << "Chek the path configuration direction" << std::endl;
-        std::cout << "Input new path to dir? [y/n]" << std::endl;
-        std::cin >> str;
-        if(str == "y")
-        {
-
-        }
-        else return -1;
+        return -1;
     }
     json_file.start();
     Inverted_Index ind;
