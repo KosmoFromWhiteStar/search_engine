@@ -12,12 +12,8 @@
 
 //Дефайны для удобства
 #define VERSION "1"
-#define REQUEST(x) ("\"request" + (x) + "\" : {\n")
-#define TRUE "\"result\": \"true\",\n"
-#define FALSE "\"result\": \"false\"\n}"
-#define REL "\"relevance\" : {\n"
-#define DOC_ID "\"doc_id\" : "
-#define RANK  ", \"rank\" : "
+#define REQUEST(x) ("request" + (x))
+
 #define LINE(s) std::cout << "========[ " << (s) << " ]========" << std::endl
 
 using js = nlohmann::json;
@@ -32,7 +28,7 @@ private:
     //состояние класса.
     bool state = false;
     //Путь к папке с конфигурацией
-    std::string path = ".//Conf/";
+    std::string path = "../Conf/";
 public:
     //Конструктор
     Converter_JSON();

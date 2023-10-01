@@ -132,16 +132,13 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
         return;
     }
     LINE("Put answere");
-    std::ofstream file(path + "answere.json");
-    if(!file.is_open())
-    {
-        std::cout << "Answere file isn't open" << std::endl;
-        return;
-    }
 
-    file << "{\n\"answers\": {\n";
+    js js_file;
+    //file << "{\n\"answers\": {\n";
+    js_file["answere"];
     for(int i = 0; i < answere.size(); i++)
     {
+        //
         std::string number = "";
         if(i < 10)
         {
@@ -152,40 +149,35 @@ void Converter_JSON::put_Answere(std::vector<std::vector<std::pair<size_t, float
             number = "0" + std::to_string(i + 1);
         }
         else number = std::to_string(i + 1);
-
-        file << REQUEST(number);
+        js_file["answere"][REQUEST(number)];
+        //
         if(answere[i].empty())
         {
-            file << FALSE;
-            if(!(i + 1 == answere.size()))
-            {
-                file << ',';
-            }
+            js_file["answere"][REQUEST(number)]["result"] = false;
         }
         else
         {
-            file << TRUE;
-            if(answere[i].size() > 1) file << REL;
+            js ne_js;
             for(int j = 0; j < answere[i].size(); j++)
             {
-                file << DOC_ID << answere[i][j].first
-                << RANK << answere[i][j].second;
-                if(!(j + 1 == answere[i].size()))
-                {
-                    file << ',';
-                }
-                file << std::endl;
+                ne_js[j]["doc_id"] = answere[i][j].first;
+                ne_js[j]["rank"] = answere[i][j].second;
             }
-            file << '}' << '}';
-            if(!(i + 1 == answere.size()))
+            js_file["answere"][REQUEST(number)]["result"] = true;
+            if(answere[i].size() > 1)
             {
-                file << ',';
+                js_file["answere"][REQUEST(number)]["relevance"] = ne_js;
             }
+            else js_file["answere"][REQUEST(number)] = ne_js;
         }
-        file << '\n';
     }
-    file << "}\n";
-    file << "}";
+    std::ofstream file(path + "answere.json");
+    if(!file.is_open())
+    {
+        std::cout << "Answere file isn't open" << std::endl;
+        return;
+    }
+    file << js_file;
     file.close();
 }
 

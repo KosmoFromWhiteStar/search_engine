@@ -7,10 +7,10 @@
   },
   "files":
     [
-      "./res/file001.txt",
-      "./res/file002.txt",
-      "./res/file003.txt",
-      "./res/file004.txt",
-      "./res/file005.txt"
+      "../res/file001.txt",
+      "../res/file002.txt",
+      "../res/file003.txt",
+      "../res/file004.txt",
+      "../res/file005.txt"
     ]
 }
