@@ -11,12 +11,19 @@
 #include "nlohmann/json.hpp"
 
 //Дефайны для удобства
+#if __linux__
+#define PATH "./Conf/"
+#elif __WIN32
+#define PATH "..\\Conf\\"
+#endif
+
 #define VERSION "1"
 #define REQUEST(x) ("request" + (x))
 
 #define LINE(s) std::cout << "========[ " << (s) << " ]========" << std::endl
 
 using js = nlohmann::json;
+
 
 /**
 * Класс для работы с JSON-файлами
@@ -28,7 +35,7 @@ private:
     //состояние класса.
     bool state = false;
     //Путь к папке с конфигурацией
-    std::string path = "../Conf/";
+    std::string path = PATH;
 public:
     //Конструктор
     Converter_JSON();
