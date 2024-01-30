@@ -113,5 +113,26 @@ Converter_JSON file(path);
 Сами тесты в папке [test](https://github.com/KosmoFromWhiteStar/search_engine/tree/master/tests)
 
 Вывод самих тестов:
+```
+[==========] Running 5 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from TestCaseInvertedIndex
+[ RUN      ] TestCaseInvertedIndex.TestBasic
+[       OK ] TestCaseInvertedIndex.TestBasic (2 ms)
+[ RUN      ] TestCaseInvertedIndex.TestBasic2
+[       OK ] TestCaseInvertedIndex.TestBasic2 (2 ms)
+[ RUN      ] TestCaseInvertedIndex.TestInvertedIndexMissingWord
+[       OK ] TestCaseInvertedIndex.TestInvertedIndexMissingWord (1 ms)
+[----------] 3 tests from TestCaseInvertedIndex (13 ms total)
 
-![image](https://github.com/KosmoFromWhiteStar/search_engine/assets/104075230/b95413a6-23cd-4e11-be06-c25f9739c7fd)
+[----------] 2 tests from TestCaseSearchServer
+[ RUN      ] TestCaseSearchServer.TestSimple
+[       OK ] TestCaseSearchServer.TestSimple (2 ms)
+[ RUN      ] TestCaseSearchServer.TestTop5
+[       OK ] TestCaseSearchServer.TestTop5 (6 ms)
+[----------] 2 tests from TestCaseSearchServer (14 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 2 test suites ran. (35 ms total)
+[  PASSED  ] 5 tests.
+```
